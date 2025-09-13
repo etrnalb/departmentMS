@@ -68,6 +68,42 @@ The Department Management System (DMS) is designed to streamline educational ope
 |   ![Register Page](https://i.imgur.com/ZOpo4pU.jpeg)   |  ![Dashboard](https://i.imgur.com/d3IZkBU.jpeg)   |
 | ![Course Management](https://i.imgur.com/AuH7OyJ.jpeg) | ![User Profile](https://i.imgur.com/lSh6g33.jpeg) |
 
+## 🔧 Installation & Setup
+
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v18+ recommended)  
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)  
+- [MongoDB](https://www.mongodb.com/) (local install or Atlas)  
+- [Git](https://git-scm.com/)  
+
+### Steps
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/oyerohabib/departmentMS.git
+cd departmentMS
+
+# 2. Install all dependencies (backend + frontend)
+npm install --prefix backend
+npm install --prefix frontend
+
+# 3. Create environment files
+echo "PORT=5000
+MONGO_URI=mongodb://localhost:27017/departmentms
+JWT_SECRET=your-secret-key" > backend/.env
+
+echo "NEXT_PUBLIC_API_URL=http://localhost:5000" > frontend/.env.local
+
+# 4. Start the backend (leave this running)
+npm run dev --prefix backend
+
+# 5. In a second terminal, start the frontend
+npm run dev --prefix frontend
+
+# Frontend will be available at: http://localhost:3000
+# Backend will be available at: http://localhost:5000
+
+
 ## Future Development Roadmap
 
 ### Enhanced Admin Controls
