@@ -68,45 +68,72 @@ The Department Management System (DMS) is designed to streamline educational ope
 |   ![Register Page](https://i.imgur.com/ZOpo4pU.jpeg)   |  ![Dashboard](https://i.imgur.com/d3IZkBU.jpeg)   |
 | ![Course Management](https://i.imgur.com/AuH7OyJ.jpeg) | ![User Profile](https://i.imgur.com/lSh6g33.jpeg) |
 
-## 🔧 Installation & Setup
+## Setup and Installation
 
-🔧 Installation & Setup
-Prerequisites
-
-Node.js (v18+)
-
-npm or yarn
-
-MongoDB (local or Atlas)
-
-Git
-
-Steps (single flow)
-# 1) Clone the repository
-git clone https://github.com/oyerohabib/departmentMS.git
+### 1) Clone the repository
+```bash
+git clone https://github.com/etrnalb/departmentMS.git
 cd departmentMS
+```
 
-# 2) Install all dependencies (backend + frontend)
-npm install --prefix backend
-npm install --prefix frontend
+### 2) Install MongoDB locally (Ubuntu)
+```bash
+# Import MongoDB public GPG key
+curl -fsSL https://pgp.mongodb.com/server-7.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
 
-# 3) Create environment files
-# Backend .env
-echo "PORT=5000
-MONGO_URI=mongodb://localhost:27017/departmentms
-JWT_SECRET=your-secret-key" > backend/.env
+# Add MongoDB repo
+echo "deb [ signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
 
-# Frontend .env.local
-echo "NEXT_PUBLIC_API_URL=http://localhost:5000" > frontend/.env.local
+# Update & install
+sudo apt-get update
+sudo apt-get install -y mongodb-org
 
-# 4) Start the backend (leave this running)
-npm run dev --prefix backend
+# Start and enable service
+sudo systemctl start mongod
+sudo systemctl enable mongod
+```
 
-# 5) In a second terminal, start the frontend
-npm run dev --prefix frontend
+### 3) Backend
+```bash
+cd backend
+npm install
+```
 
-# Frontend → http://localhost:3000
-# Backend  → http://localhost:5000
+Create `.env`:
+```bash
+cat > .env << 'EOF'
+PORT=4000
+MONGODB_URI=mongodb://localhost:27017/departmentms
+JWT_SECRET=change_me
+CORS_ORIGIN=http://localhost:3000
+UPLOAD_DIR=uploads
+EOF
+```
+
+Run:
+```bash
+npm run dev
+```
+
+### 4) Frontend
+```bash
+cd ../frontend
+```
+
+Create `.env`:
+```bash
+cat > .env << 'EOF'
+NEXT_PUBLIC_API_BASE_URL=http://localhost:4000
+EOF
+```
+
+Run:
+```bash
+npm run dev
+```
+
+Visit:
+- http://localhost:3000
 
 
 
